@@ -1,6 +1,7 @@
 
 package ppo.de.pratico.trabalho.gui;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,8 +15,8 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
 
     
     private TelaEditar teAuxiliar;
+    private LivroTableModelMeus tableM;
     
-    LivroTableModelMeus tableM;
     public TelaMeusRecursosArrastaESolta() {
         try {
             tableM = new LivroTableModelMeus();
@@ -37,6 +38,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnVisualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +83,13 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
             }
         });
 
+        btnVisualizar.setText("Visualizar livro");
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,15 +98,17 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnVisualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
                         .addGap(47, 47, 47)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,8 +119,10 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnVisualizar)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltar)
                 .addGap(41, 41, 41))
@@ -118,6 +131,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
          TMenu tm = new TMenu();
          tm.setVisible(true);
@@ -145,6 +159,8 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+   
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
         if (JTMeusLibros.getSelectedRow() != -1) {
@@ -152,16 +168,34 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
             int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente editar esse livro?", "Editar", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 try {
+                    String titulo = (tableM.retornaTitulo(JTMeusLibros.getSelectedRow()));
+                    String autor = (tableM.retornaAutor(JTMeusLibros.getSelectedRow()));
+                    String descricao = (tableM.retornaDescricao(JTMeusLibros.getSelectedRow()));
+                    String genero = (tableM.retornaGenero(JTMeusLibros.getSelectedRow()));
+                    int anoLanc = (tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow()));
+                    String[] palavrasChave = (tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()));
                     tableM.removeRow(JTMeusLibros.getSelectedRow());
+                    TelaEditar te = new TelaEditar();
+                    te.setar(titulo, autor, descricao, genero, anoLanc, palavrasChave);
+                    te.setVisible(true);
+                    dispose();
                 } catch (IOException | ClassNotFoundException | LivroNaoEncontradoException ex) {
                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao editar", JOptionPane.ERROR_MESSAGE);
                 }
-                TelaEditar te = new TelaEditar();
-                te.setVisible(true);
-                dispose();
+                
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+        if (JTMeusLibros.getSelectedRow() != -1) {
+            
+                TelaVisualizacao tv = new TelaVisualizacao(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()));
+                tv.setVisible(true);
+                dispose();
+            
+        }
+    }//GEN-LAST:event_btnVisualizarActionPerformed
 
 
     public static void main(String args[]) {
@@ -201,6 +235,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVisualizar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

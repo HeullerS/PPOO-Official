@@ -38,6 +38,42 @@ public class LivroTableModelMeus extends AbstractTableModel{
     public int getColumnCount() {
         return colunas.length;
     }
+    
+    public String retornaTitulo(int linha){
+        
+        return  dados.get(linha).getTitulo();
+    
+    }
+    
+    public String retornaDescricao(int linha){
+        
+        return  dados.get(linha).getDescricao();
+    
+    }
+    
+    public String retornaGenero(int linha){
+        
+        return  dados.get(linha).getGenero();
+    
+    }
+    
+    public int retornaAnoLancamento(int linha){
+        
+        return  dados.get(linha).getAnoDeLancamento();
+    
+    }
+    
+    public String[] retornaPalavrasChave(int linha){
+        
+        return  dados.get(linha).getPalavrasChave();
+    
+    }
+    
+    public String retornaAutor(int linha){
+        
+        return  dados.get(linha).getAutor();
+    
+    }
 
     @Override
     public Object getValueAt(int linha, int coluna) {
