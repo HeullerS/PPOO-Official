@@ -174,11 +174,11 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
                     String genero = (tableM.retornaGenero(JTMeusLibros.getSelectedRow()));
                     int anoLanc = (tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow()));
                     String[] palavrasChave = (tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()));
-                    tableM.removeRow(JTMeusLibros.getSelectedRow());
                     TelaEditar te = new TelaEditar();
                     te.setar(titulo, autor, descricao, genero, anoLanc, palavrasChave);
                     te.setVisible(true);
                     dispose();
+                    tableM.removeRow(JTMeusLibros.getSelectedRow());
                 } catch (IOException | ClassNotFoundException | LivroNaoEncontradoException ex) {
                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao editar", JOptionPane.ERROR_MESSAGE);
                 }
