@@ -18,7 +18,7 @@ public class LivroTableModel extends AbstractTableModel{
 
     }
     
-    private String[] colunas = {"Livro", "Autor"};
+    private String[] colunas = {"Livro", "Autor", "Usuario"};
 
     @Override
     public String getColumnName(int column) {
@@ -44,6 +44,8 @@ public class LivroTableModel extends AbstractTableModel{
                 return dados.get(linha).getTitulo();
             case 1: 
                 return dados.get(linha).getAutor();
+            case 2:
+                return dados.get(linha).getEmailUsuario();
             
         }
         

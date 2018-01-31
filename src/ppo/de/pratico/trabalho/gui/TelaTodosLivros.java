@@ -15,11 +15,12 @@ public class TelaTodosLivros extends javax.swing.JFrame {
         super("Livraria Online");
         try {
             tableModel = new LivroTableModel();
+            initComponents();
+            JTLibros.setModel(tableModel);
         } catch (IOException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro na tela", JOptionPane.ERROR_MESSAGE);
         }
-        initComponents();
-        JTLibros.setModel(tableModel);
+        
     }
 
     

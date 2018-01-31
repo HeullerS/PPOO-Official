@@ -38,6 +38,9 @@ public class TelaVisualizarLivro extends JFrame{
     private JLabel lbAnoLanc;
     private JTextArea taAnoLanc;
     
+    private JPanel painelComentario;
+    private JScrollPane scrollComentario;
+    
     
     
     private JLabel lbPalavrasChave;
@@ -129,9 +132,12 @@ public class TelaVisualizarLivro extends JFrame{
         
         //COMENTARIOS
         
-        taComentar = new JTextArea(8, 10);
-        taComentar.setLineWrap(true);
-        adicionarComponente(taComentar, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 13, 0, 1, 1);
+        taComentar = new JTextArea();
+        scrollComentario = new JScrollPane(taComentar);
+        scrollComentario.setPreferredSize(new Dimension(250, 150)); 
+        painelComentario = new JPanel(new GridLayout(1, 1));
+        painelComentario.add(scrollComentario, BorderLayout.PAGE_END);
+        adicionarComponente(painelComentario, GridBagConstraints.WEST, GridBagConstraints.BOTH, 13, 0, 1, 1);
         
         painelBotoes = new JPanel();
         btnComentar = new JButton("Comentar");

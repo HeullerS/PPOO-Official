@@ -1,10 +1,14 @@
 
 package ppo.de.pratico.trabalho.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModel;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import ppo.de.pratico.trabalho.exceptions.CampoComQuantidadeMinimaException;
@@ -53,6 +58,8 @@ public class TelaCadastroDoLivro extends JFrame{
     
     private JLabel lbDescricao;
     private JTextArea txtDescricao;
+    private JPanel painelDescricao;
+    private JScrollPane scrollDesc;
     
     private JLabel lbPalavrasChave;
     private JTextField txtPalavrasChave;
@@ -109,11 +116,16 @@ public class TelaCadastroDoLivro extends JFrame{
         adicionarComponente(txtAnoLancamento, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 8, 0, 1, 1);
         
         
+        
         lbDescricao = new JLabel("Descrição");
         adicionarComponente(lbDescricao, GridBagConstraints.WEST, GridBagConstraints.BOTH, 9, 0, 1, 1);
-        txtDescricao = new JTextArea(8, 10);
-        txtDescricao.setLineWrap(true);
-        adicionarComponente(txtDescricao, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 10, 0, 1, 1);
+        txtDescricao = new JTextArea();
+        scrollDesc = new JScrollPane(txtDescricao);
+        scrollDesc.setPreferredSize(new Dimension(250, 150)); 
+        painelDescricao = new JPanel(new GridLayout(1, 1));
+        painelDescricao.add(scrollDesc, BorderLayout.PAGE_END);
+        adicionarComponente(painelDescricao, GridBagConstraints.WEST, GridBagConstraints.BOTH, 10, 0, 1, 1);
+        
         
         lbPalavrasChave = new JLabel("Palavras-chave (mínimo 2)");
         adicionarComponente(lbPalavrasChave, GridBagConstraints.WEST, GridBagConstraints.BOTH, 11, 0, 1, 1);

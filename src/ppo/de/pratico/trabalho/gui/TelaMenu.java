@@ -54,10 +54,10 @@ public class TelaMenu extends JFrame{
     
     private void configurarAcoesBotoes(){
         
-        btnListarRecursos = new JButton("Listar todos livros");
+        btnListarRecursos = new JButton("Todos livros");
         adicionarComponente(btnListarRecursos, GridBagConstraints.EAST, GridBagConstraints.BOTH, 0, 0, 1, 1);
         
-        btnListarMeusRecursos = new JButton("Listar meus livros");
+        btnListarMeusRecursos = new JButton("Meus livros");
         adicionarComponente(btnListarMeusRecursos, GridBagConstraints.EAST, GridBagConstraints.BOTH, 0, 1, 1, 1);
         
         btnLogout = new JButton("Logout");
