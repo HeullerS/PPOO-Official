@@ -14,7 +14,7 @@ public class LivroTableModelMeus extends AbstractTableModel{
     
     private ArrayList<Livro> lista;
     private ArrayList<Livro> dados;
-    private String[] colunas = {"Livro", "Autor", "Gênero", "Ano lanc.", "Descricao"};
+    private String[] colunas = {"Livro", "Autor"};
     
     public LivroTableModelMeus() throws IOException, ClassNotFoundException {
         
@@ -83,12 +83,6 @@ public class LivroTableModelMeus extends AbstractTableModel{
                 return dados.get(linha).getTitulo();
             case 1: 
                 return dados.get(linha).getAutor();
-            case 2:
-                return dados.get(linha).getGenero();
-            case 3:
-                return dados.get(linha).getAnoDeLancamento();
-            case 4:
-                return dados.get(linha).getDescricao();
             
         }
         
@@ -104,15 +98,6 @@ public class LivroTableModelMeus extends AbstractTableModel{
                 break;
             case 1: 
                 dados.get(linha).setAutor((String)valor);
-                break;
-            case 2:
-                dados.get(linha).setGenero((String)valor);
-                break;
-            case 3:
-                dados.get(linha).setAnoDeLancamento(Integer.parseInt((String)valor));
-                break;
-            case 4:
-                dados.get(linha).setDescricao((String)valor);
                 break;
             
         }

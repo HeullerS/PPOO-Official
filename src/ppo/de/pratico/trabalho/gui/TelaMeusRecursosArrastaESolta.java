@@ -190,7 +190,22 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         if (JTMeusLibros.getSelectedRow() != -1) {
             
-                TelaVisualizacao tv = new TelaVisualizacao(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()));
+                String result = "";
+                for (int i = 0; i < tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()).length; i++) {
+                    if (i == tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()).length - 1) {
+                        result += tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow())[i];
+                    }
+                    else{
+                        result += tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow())[i] + ", ";
+                    }
+                    
+                }
+                
+                String anoLanc = Integer.toString((tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow())));
+                
+                TelaVisualizacao tv = new TelaVisualizacao(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
+                        tableM.retornaDescricao(JTMeusLibros.getSelectedRow()), result , tableM.retornaAutor(JTMeusLibros.getSelectedRow()), 
+                            tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc);
                 tv.setVisible(true);
                 dispose();
             
