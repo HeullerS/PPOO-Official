@@ -2,7 +2,7 @@
 package ppo.de.pratico.trabalho.gui;
 
 
-import ppo.de.pratico.trabalho.gui.TelaSalvarRecurso;
+import ppo.de.pratico.trabalho.gui.TelaCadastroDoLivro;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import ppo.de.pratico.trabalho.seguranca.SessaoUsuarioL;
 
 
-public class TMenu extends JFrame{
+public class TelaMenu extends JFrame{
     
     
     private GridBagLayout gbl;
@@ -29,7 +29,7 @@ public class TMenu extends JFrame{
     private JButton btnListarMeusRecursos;
     private JButton btnLogout;
 
-    public TMenu() {
+    public TelaMenu() {
         
         super("Livraria Online");
         setSize(500,250);
@@ -54,10 +54,10 @@ public class TMenu extends JFrame{
     
     private void configurarAcoesBotoes(){
         
-        btnListarRecursos = new JButton("Listar todos recursos");
+        btnListarRecursos = new JButton("Listar todos livros");
         adicionarComponente(btnListarRecursos, GridBagConstraints.EAST, GridBagConstraints.BOTH, 0, 0, 1, 1);
         
-        btnListarMeusRecursos = new JButton("Listar meus recursos");
+        btnListarMeusRecursos = new JButton("Listar meus livros");
         adicionarComponente(btnListarMeusRecursos, GridBagConstraints.EAST, GridBagConstraints.BOTH, 0, 1, 1, 1);
         
         btnLogout = new JButton("Logout");
@@ -67,7 +67,7 @@ public class TMenu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 sessaoUsuario.invalidarSessao();
-                TelaAutenticacao tp = new TelaAutenticacao();
+                TelaAutenticacaoDoUsuario tp = new TelaAutenticacaoDoUsuario();
                  tp.setVisible(true);
                  dispose();
             }
@@ -77,7 +77,7 @@ public class TMenu extends JFrame{
             new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){
-            TelaMeusRecursosArrastaESolta tm = new TelaMeusRecursosArrastaESolta();
+            TelaMeusLivros tm = new TelaMeusLivros();
             tm.setVisible(true);
             dispose();
                 }
@@ -89,7 +89,7 @@ public class TMenu extends JFrame{
             new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){
-            TelaTodosRecursosArrastaESolta tr = new TelaTodosRecursosArrastaESolta();
+            TelaTodosLivros tr = new TelaTodosLivros();
             tr.setVisible(true);
             dispose();
                 }

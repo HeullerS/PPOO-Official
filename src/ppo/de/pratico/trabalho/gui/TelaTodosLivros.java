@@ -8,10 +8,11 @@ import javax.swing.JOptionPane;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModel;
 
 
-public class TelaTodosRecursosArrastaESolta extends javax.swing.JFrame {
+public class TelaTodosLivros extends javax.swing.JFrame {
 
     LivroTableModel tableModel;
-    public TelaTodosRecursosArrastaESolta() {
+    public TelaTodosLivros() {
+        super("Livraria Online");
         try {
             tableModel = new LivroTableModel();
         } catch (IOException | ClassNotFoundException ex) {
@@ -92,7 +93,7 @@ public class TelaTodosRecursosArrastaESolta extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
 
-        TMenu tm = new TMenu();
+        TelaMenu tm = new TelaMenu();
          tm.setVisible(true);
          dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
@@ -111,18 +112,18 @@ public class TelaTodosRecursosArrastaESolta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaTodosRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaTodosLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaTodosRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaTodosLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaTodosRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaTodosLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaTodosRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaTodosLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
   
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaTodosRecursosArrastaESolta().setVisible(true);
+                new TelaTodosLivros().setVisible(true);
             }
         });
     }

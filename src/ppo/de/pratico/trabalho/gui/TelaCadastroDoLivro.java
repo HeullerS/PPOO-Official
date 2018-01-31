@@ -9,7 +9,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -29,7 +28,7 @@ import ppo.de.pratico.trabalho.servicos.GerenciadorLivrosL;
 import ppo.de.pratico.trabalho.servicos.GerenciadorUsuariosL;
 
 
-public class TelaEditar extends JFrame{
+public class TelaCadastroDoLivro extends JFrame{
     
     private LivroTableModel tableModel;
     
@@ -58,12 +57,14 @@ public class TelaEditar extends JFrame{
     private JLabel lbPalavrasChave;
     private JTextField txtPalavrasChave;
     
-    private JButton btnEditar;
+    private JButton btnSalvar;
+    private JButton btnCancelar;
+    private JPanel painelBotoes;
 
-    public TelaEditar() {
+    public TelaCadastroDoLivro() {
         super("Livraria Online");
         setSize(400,550);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inicializar();
         
     }
@@ -81,7 +82,7 @@ public class TelaEditar extends JFrame{
         setLayout(gbl);
         
         icnCadastrarRecurso = new JLabel(new ImageIcon(getClass().getResource("../img/icnCadastrarRecurso.png")));
-        lbCadastrarRecurso = new JLabel("Editar recurso");
+        lbCadastrarRecurso = new JLabel("Cadastrar livro");
         painelCadastrarRecurso = new JPanel();
         painelCadastrarRecurso.add(icnCadastrarRecurso);
         painelCadastrarRecurso.add(lbCadastrarRecurso);
@@ -119,27 +120,36 @@ public class TelaEditar extends JFrame{
         txtPalavrasChave = new JTextField(6);
         adicionarComponente(txtPalavrasChave, GridBagConstraints.WEST, GridBagConstraints.BOTH, 12, 0, 1, 1);
         
-        btnEditar = new JButton("Editar");
-        adicionarComponente(btnEditar, GridBagConstraints.CENTER, GridBagConstraints.BOTH, 13, 0, 1, 1);
+        btnSalvar = new JButton("Salvar");
+        btnCancelar = new JButton("Cancelar");
+        painelBotoes = new JPanel();
+        painelBotoes.add(btnSalvar);
+        painelBotoes.add(btnCancelar);
+        adicionarComponente(painelBotoes, GridBagConstraints.CENTER, GridBagConstraints.BOTH, 13, 0, 1, 1);
     }
     
-    private Livro carregarLivro(){
-       int ano = Integer.parseInt(txtAnoLancamento.getText());
+    private Livro carregarLivro() {
+        
+        int ano = Integer.parseInt(txtAnoLancamento.getText());
         try {
-            return (new Livro(txtTitulo.getText(), txtAutor.getText(), txtDescricao.getText(), txtGenero.getText(),
-                    ano, txtPalavrasChave.getText().split(" "), GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado()));
-        } catch (IOException | ClassNotFoundException ex) {
+            return (new Livro(txtTitulo.getText(), txtAutor.getText(), txtDescricao.getText(), txtGenero.getText(), ano,
+                    txtPalavrasChave.getText().split(" "), GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado()));
+        } catch (IOException |ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Carregar Livro", JOptionPane.ERROR_MESSAGE);
         }
         return null;
+        
     }
     
-    
-    private void validarCampos() throws CampoVazioException, CampoComQuantidadeMinimaException{
+    private void validarCampos() throws Exception{
     
         if (txtTitulo.getText().trim().isEmpty()) {
             throw new CampoVazioException(lbTitulo);
         }
+        if (txtAutor.getText().trim().isEmpty()) {
+            throw new CampoVazioException(lbAutor);
+        }
+        
         if (txtGenero.getText().trim().isEmpty()) {
             throw new CampoVazioException(lbGenero);
         }
@@ -148,22 +158,19 @@ public class TelaEditar extends JFrame{
         }
         if (txtDescricao.getText().trim().isEmpty()) {
             throw new CampoVazioException(lbDescricao);
-            
-        }
-        if (txtAutor.getText().trim().isEmpty()) {
-            throw new CampoVazioException(lbAutor);
         }
         
         String palavraChave[] = txtPalavrasChave.getText().split(" ");
         if (palavraChave.length < 2) {
             throw new CampoComQuantidadeMinimaException(lbPalavrasChave);
         }
+        
     }
-   
     
+   
     private void configurarAcoesBotoes(){
         
-        btnEditar.addActionListener(
+        btnSalvar.addActionListener(
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -171,18 +178,26 @@ public class TelaEditar extends JFrame{
                 try {
                     validarCampos();
                     GerenciadorLivrosL.obterInstancia().cadastrarLivro(carregarLivro());
-                    JOptionPane.showMessageDialog(null, "Livro editado com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
-                    TelaMeusRecursosArrastaESolta tmas = new TelaMeusRecursosArrastaESolta();
-                    tmas.setVisible(true);
-                    dispose();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "O ano de lançamento deve ser um número!", "Recurso", JOptionPane.ERROR_MESSAGE);
-                }
-                
+                    JOptionPane.showMessageDialog(null, "Livro salvo com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                    limparTela();
+                }catch(NumberFormatException ex){
+                 
+                      JOptionPane.showMessageDialog(null, "O ano de lançamento deve ser um número!", "Recurso", JOptionPane.ERROR_MESSAGE);
+                } 
                 catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Recurso", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+        
+        btnCancelar.addActionListener(
+        new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {  
                  
+                TelaMeusLivros tmas = new TelaMeusLivros();
+                tmas.setVisible(true);
+                dispose();
             }
         });
     }
@@ -198,22 +213,6 @@ public class TelaEditar extends JFrame{
     
     }
     
-    public void setar(String titulo, String autor, String descricao, String genero, int anoLanc, String[] palavrasChave){ 
-    
-        txtTitulo.setText(titulo);
-        txtAutor.setText(autor);
-        txtDescricao.setText(descricao);
-        txtGenero.setText(genero);
-        txtAnoLancamento.setText(Integer.toString(anoLanc));
-        String result = "";
-        for (int i = 0; i < palavrasChave.length; i++) {
-            result += palavrasChave[i] + " ";
-        }
-        txtPalavrasChave.setText(result);
-        
-        
-    }
-    
     private void adicionarComponente(Component comp, int anchor, int fill, int linha, int coluna, int largura, int altura){
     
         gbc.fill = fill;
@@ -225,6 +224,6 @@ public class TelaEditar extends JFrame{
         gbc.insets = new Insets(3, 3, 3, 3);
         gbl.setConstraints(comp, gbc);
         add(comp);
-    }    
-    
+    }
+     
 }

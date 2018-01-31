@@ -8,15 +8,17 @@ import java.util.logging.Logger;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModelMeus;
 import javax.swing.JOptionPane;
 import ppo.de.pratico.trabalho.exceptions.LivroNaoEncontradoException;
-import ppo.de.pratico.trabalho.gui.TelaSalvarRecurso;
+import ppo.de.pratico.trabalho.gui.TelaCadastroDoLivro;
 
 
-public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
+public class TelaMeusLivros extends javax.swing.JFrame {
 
     
     private LivroTableModelMeus tableM;
     
-    public TelaMeusRecursosArrastaESolta() {
+    public TelaMeusLivros() {
+        super("Livraria Online");
+        
         try {
             System.out.println("cheguei aqui");
             tableM = new LivroTableModelMeus();
@@ -135,7 +137,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
 
     
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-         TMenu tm = new TMenu();
+         TelaMenu tm = new TelaMenu();
          tm.setVisible(true);
          dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
@@ -156,7 +158,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        TelaSalvarRecurso tsr = new TelaSalvarRecurso();
+        TelaCadastroDoLivro tsr = new TelaCadastroDoLivro();
         tsr.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -176,7 +178,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
                     String genero = (tableM.retornaGenero(JTMeusLibros.getSelectedRow()));
                     int anoLanc = (tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow()));
                     String[] palavrasChave = (tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()));
-                    TelaEditar te = new TelaEditar();
+                    TelaEditarLivro te = new TelaEditarLivro();
                     te.setar(titulo, autor, descricao, genero, anoLanc, palavrasChave);
                     te.setVisible(true);
                     dispose();
@@ -205,7 +207,7 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
                 
                 String anoLanc = Integer.toString((tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow())));
                 
-                TelaVisualizacao tv = new TelaVisualizacao(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
+                TelaVisualizarLivro tv = new TelaVisualizarLivro(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
                         tableM.retornaDescricao(JTMeusLibros.getSelectedRow()), result , tableM.retornaAutor(JTMeusLibros.getSelectedRow()), 
                             tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc);
                 tv.setVisible(true);
@@ -229,20 +231,21 @@ public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaMeusRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMeusLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaMeusRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMeusLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaMeusRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMeusLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaMeusRecursosArrastaESolta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMeusLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaMeusRecursosArrastaESolta().setVisible(true);
+                new TelaMeusLivros().setVisible(true);
             }
         });
     }

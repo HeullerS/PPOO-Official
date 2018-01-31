@@ -1,14 +1,14 @@
 
 package ppo.de.pratico.trabalho;
 
-import ppo.de.pratico.trabalho.gui.TelaAutenticacao;
+import ppo.de.pratico.trabalho.gui.TelaAutenticacaoDoUsuario;
 
 
 public class Principal {
     
     public static void main(String[] args) {
         
-        new TelaAutenticacao().setVisible(true);
+        new TelaAutenticacaoDoUsuario().setVisible(true);
         
        
     }

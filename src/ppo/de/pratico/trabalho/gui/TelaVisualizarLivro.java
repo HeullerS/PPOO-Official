@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
-public class TelaVisualizacao extends JFrame{
+public class TelaVisualizarLivro extends JFrame{
     
     private GridBagLayout gbl;
     private GridBagConstraints gbc;
@@ -51,8 +51,8 @@ public class TelaVisualizacao extends JFrame{
     
     
     
-    public TelaVisualizacao(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
-        super("Visualizar livro");
+    public TelaVisualizarLivro(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
+        super("Livraria online");
         setSize(500,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inicializar(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc);
@@ -148,7 +148,7 @@ public class TelaVisualizacao extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                TelaMeusRecursosArrastaESolta tmras = new TelaMeusRecursosArrastaESolta();
+                TelaMeusLivros tmras = new TelaMeusLivros();
                 tmras.setVisible(true);
                 dispose();
                 

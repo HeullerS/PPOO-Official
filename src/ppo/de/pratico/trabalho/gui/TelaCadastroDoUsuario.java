@@ -24,13 +24,13 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import org.mindrot.jbcrypt.BCrypt;
-import ppo.de.pratico.trabalho.gui.TelaAutenticacao;
+import ppo.de.pratico.trabalho.gui.TelaAutenticacaoDoUsuario;
 import ppo.de.pratico.trabalho.exceptions.SenhasNaoConferemException;
 import ppo.de.pratico.trabalho.exceptions.TamanhoMinimoSenha;
 import ppo.de.pratico.trabalho.exceptions.UsuarioJaCadastradoException;
 
 
-public class TelaCadastro extends JFrame{
+public class TelaCadastroDoUsuario extends JFrame{
     
     private GridBagLayout gbl;
     private GridBagConstraints gbc;
@@ -55,7 +55,7 @@ public class TelaCadastro extends JFrame{
     private JPanel painelCadastro;
     
     
-    public TelaCadastro(){
+    public TelaCadastroDoUsuario(){
         super("Livraria Online");
         setSize(500,250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -179,7 +179,7 @@ public class TelaCadastro extends JFrame{
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 TelaAutenticacao tp = new TelaAutenticacao();
+                 TelaAutenticacaoDoUsuario tp = new TelaAutenticacaoDoUsuario();
                  tp.setVisible(true);
                  dispose();
             }

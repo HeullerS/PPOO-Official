@@ -18,13 +18,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import ppo.de.pratico.trabalho.gui.TMenu;
+import ppo.de.pratico.trabalho.gui.TelaMenu;
 import ppo.de.pratico.trabalho.modelos.Usuario;
 import ppo.de.pratico.trabalho.servicos.GerenciadorUsuariosL;
 
 
 
-public class TelaAutenticacao extends JFrame{
+public class TelaAutenticacaoDoUsuario extends JFrame{
     
     
     private GridBagLayout gbl;
@@ -47,7 +47,7 @@ public class TelaAutenticacao extends JFrame{
     private JPanel painelBotoesAutenticacao;
     
     
-    public TelaAutenticacao(){
+    public TelaAutenticacaoDoUsuario(){
         super("Livraria Online");
         setSize(500,250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +104,7 @@ public class TelaAutenticacao extends JFrame{
             new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){
-                TelaCadastro tc = new TelaCadastro();
+                TelaCadastroDoUsuario tc = new TelaCadastroDoUsuario();
                 tc.setVisible(true);
                 dispose();
                 }
@@ -117,7 +117,7 @@ public class TelaAutenticacao extends JFrame{
             try {
                     GerenciadorUsuariosL.obterInstancia().autenticarUsuario(carregarUsuario());
                     JOptionPane.showMessageDialog(null, "Bem-vindo!", "Autenticação", JOptionPane.INFORMATION_MESSAGE);
-                    TMenu ti = new TMenu();
+                    TelaMenu ti = new TelaMenu();
                     ti.setVisible(true);
                     dispose();
                 } catch (Exception ex) {
