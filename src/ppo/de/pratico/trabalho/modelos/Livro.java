@@ -29,6 +29,7 @@ public class Livro implements Comparable<Livro> , Serializable{
         this.anoDeLancamento = anoDeLancamento;
         this.palavrasChave = palavrasChave;
         this.emailUsuario = emailUsuario;
+        System.out.println("tey tey");
     }
 
     public String getAutor() {

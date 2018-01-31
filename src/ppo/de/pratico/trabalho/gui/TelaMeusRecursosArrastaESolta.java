@@ -14,18 +14,20 @@ import ppo.de.pratico.trabalho.gui.TelaSalvarRecurso;
 public class TelaMeusRecursosArrastaESolta extends javax.swing.JFrame {
 
     
-    private TelaEditar teAuxiliar;
     private LivroTableModelMeus tableM;
     
     public TelaMeusRecursosArrastaESolta() {
         try {
+            System.out.println("cheguei aqui");
             tableM = new LivroTableModelMeus();
+            System.out.println("cheguei aqui 2");
+            initComponents();
+            JTMeusLibros.setModel(tableM);
+             System.out.println("cheguei aqui 3");
         } catch (IOException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro montagem da tabela", JOptionPane.ERROR_MESSAGE);
         } 
-        initComponents();
-        teAuxiliar = new TelaEditar();
-        JTMeusLibros.setModel(tableM);
+        
     }
 
     @SuppressWarnings("unchecked")
