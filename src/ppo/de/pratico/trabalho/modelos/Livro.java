@@ -20,6 +20,7 @@ public class Livro implements Comparable<Livro> , Serializable{
     private int anoDeLancamento;
     private String[] palavrasChave;
     private String emailUsuario;
+    private ArrayList<String> comentarios;
 
     public Livro(String titulo, String autor, String descricao, String genero, int anoDeLancamento, String[] palavrasChave, String emailUsuario) {
         this.titulo = titulo;
@@ -29,13 +30,26 @@ public class Livro implements Comparable<Livro> , Serializable{
         this.anoDeLancamento = anoDeLancamento;
         this.palavrasChave = palavrasChave;
         this.emailUsuario = emailUsuario;
-        System.out.println("tey tey");
+        comentarios = new ArrayList<>();
+    }
+    
+    public void comentar(String comment){
+    
+        comentarios.add(comment);
+    }
+
+    public void setComentarios(ArrayList<String> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public ArrayList<String> getComentarios() {
+        return comentarios;
     }
 
     public String getAutor() {
         return autor;
     }
-
+    
     public String getEmailUsuario() {
         return emailUsuario;
     }

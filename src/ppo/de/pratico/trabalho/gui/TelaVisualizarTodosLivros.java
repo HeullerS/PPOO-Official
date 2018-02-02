@@ -1,7 +1,6 @@
 package ppo.de.pratico.trabalho.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,9 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import ppo.de.pratico.trabalho.modelos.Livro;
 
 
-public class TelaVisualizarLivro extends JFrame{
+public class TelaVisualizarTodosLivros extends JFrame{
     
     private GridBagLayout gbl;
     private GridBagConstraints gbc;
@@ -41,7 +41,9 @@ public class TelaVisualizarLivro extends JFrame{
     private JPanel painelComentario;
     private JScrollPane scrollComentario;
     
-    
+    private JTextArea taComments;
+    private JScrollPane scrollComments;
+    private JPanel painelComments;
     
     private JLabel lbPalavrasChave;
     private JTextArea taPalavrasChave;
@@ -52,14 +54,17 @@ public class TelaVisualizarLivro extends JFrame{
     private JButton btnComentar;
     private JButton btnSair;
     
+    private Livro livro;
     
     
-    public TelaVisualizarLivro(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
+    public TelaVisualizarTodosLivros(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, Livro livro){
         super("Livraria online");
         setSize(500,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.livro = livro;
         inicializar(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc);
     }
+    
     
     private void inicializar(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
     
@@ -132,19 +137,30 @@ public class TelaVisualizarLivro extends JFrame{
         
         //COMENTARIOS
         
+        taComments = new JTextArea(retornaComments());
+        taComments.setEditable(false);
+        taComments.setBackground(null);
+        scrollComments = new JScrollPane(taComments);
+        scrollComments.setPreferredSize(new Dimension(150, 100)); 
+        painelComments = new JPanel(new GridLayout(1, 1));
+        painelComments.add(scrollComments, BorderLayout.PAGE_END);
+        adicionarComponente(painelComments, GridBagConstraints.WEST, GridBagConstraints.BOTH, 13, 0, 1, 1);
+        
+        
+        
         taComentar = new JTextArea();
         scrollComentario = new JScrollPane(taComentar);
         scrollComentario.setPreferredSize(new Dimension(250, 150)); 
         painelComentario = new JPanel(new GridLayout(1, 1));
         painelComentario.add(scrollComentario, BorderLayout.PAGE_END);
-        adicionarComponente(painelComentario, GridBagConstraints.WEST, GridBagConstraints.BOTH, 13, 0, 1, 1);
+        adicionarComponente(painelComentario, GridBagConstraints.WEST, GridBagConstraints.BOTH, 14, 0, 1, 1);
         
         painelBotoes = new JPanel();
         btnComentar = new JButton("Comentar");
         btnSair = new JButton("Sair");
         painelBotoes.add(btnComentar);
         painelBotoes.add(btnSair);
-        adicionarComponente(painelBotoes, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 14, 0, 1, 1);
+        adicionarComponente(painelBotoes, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 15, 0, 1, 1);
         
     }
     
@@ -154,10 +170,31 @@ public class TelaVisualizarLivro extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                TelaMeusLivros tmras = new TelaMeusLivros();
+                TelaMenu tmras = new TelaMenu();
                 tmras.setVisible(true);
                 dispose();
                 
+            }
+        });
+        
+        btnComentar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                System.out.println("Aqui o comentário" + taComentar.getText());
+                livro.comentar(taComentar.getText());
+                
+                String result = "";
+                for (int i = 0; i < livro.getComentarios().size(); i++) {
+            
+                    result += livro.getComentarios().get(i) + " ";
+                }
+                System.out.println("Lista de comentários:");
+                System.out.println(result);
+                
+                dispose();
+                TelaTodosLivros tmras = new TelaTodosLivros();
+                tmras.setVisible(true);
             }
         });
     
@@ -174,6 +211,19 @@ public class TelaVisualizarLivro extends JFrame{
         gbc.insets = new Insets(3, 3, 3, 3);
         gbl.setConstraints(comp, gbc);
         add(comp);
+    }
+    
+    private String retornaComments(){
+    
+        String result = "";
+        
+        for (int i = 0; i < livro.getComentarios().size(); i++) {
+            
+            result += livro.getComentarios().get(i) + " ";
+        }
+        
+        return result;
+    
     }
     
     

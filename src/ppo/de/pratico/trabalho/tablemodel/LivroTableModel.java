@@ -11,14 +11,60 @@ public class LivroTableModel extends AbstractTableModel{
 
     
     private ArrayList<Livro> dados = new ArrayList<>();
+    private String[] colunas = {"Livro", "Autor", "Usuario"};
     
     public LivroTableModel() throws IOException, ClassNotFoundException {
         
         dados = GerenciadorLivrosL.obterInstancia().getListaLivro();
 
     }
+     public Livro retornaLivro(int linha){
     
-    private String[] colunas = {"Livro", "Autor", "Usuario"};
+        return dados.get(linha);
+    }
+     
+     public String retornaTitulo(int linha){
+        
+        return  dados.get(linha).getTitulo();
+    
+    }
+    
+    public String retornaDescricao(int linha){
+        
+        return  dados.get(linha).getDescricao();
+    
+    }
+    
+    public String retornaGenero(int linha){
+        
+        return  dados.get(linha).getGenero();
+    
+    }
+    
+    public int retornaAnoLancamento(int linha){
+        
+        return  dados.get(linha).getAnoDeLancamento();
+    
+    }
+    
+    public String[] retornaPalavrasChave(int linha){
+        
+        return  dados.get(linha).getPalavrasChave();
+    
+    }
+    
+    public String retornaAutor(int linha){
+        
+        return  dados.get(linha).getAutor();
+    
+    }
+    
+    public String retornaEmail(int linha){
+    
+        return dados.get(linha).getEmailUsuario();
+    }
+    
+    
 
     @Override
     public String getColumnName(int column) {
@@ -53,3 +99,4 @@ public class LivroTableModel extends AbstractTableModel{
     }
     
 }
+   

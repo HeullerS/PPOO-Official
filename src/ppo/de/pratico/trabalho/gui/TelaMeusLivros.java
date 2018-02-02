@@ -7,8 +7,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModelMeus;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import ppo.de.pratico.trabalho.exceptions.LivroNaoEncontradoException;
 import ppo.de.pratico.trabalho.gui.TelaCadastroDoLivro;
+import ppo.de.pratico.trabalho.modelos.Livro;
 
 
 public class TelaMeusLivros extends javax.swing.JFrame {
@@ -19,13 +21,11 @@ public class TelaMeusLivros extends javax.swing.JFrame {
     public TelaMeusLivros() {
         super("Livraria Online");
         
-        try {
-            System.out.println("cheguei aqui");
+        try { 
             tableM = new LivroTableModelMeus();
-            System.out.println("cheguei aqui 2");
             initComponents();
             JTMeusLibros.setModel(tableM);
-             System.out.println("cheguei aqui 3");
+            
         } catch (IOException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro montagem da tabela", JOptionPane.ERROR_MESSAGE);
         } 
@@ -106,11 +106,11 @@ public class TelaMeusLivros extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnVisualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnVisualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -191,6 +191,11 @@ public class TelaMeusLivros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    public Livro retornaLivro(){
+    
+        Livro livrinho = (tableM.retornaLivro(JTMeusLibros.getSelectedRow()));
+        return livrinho;
+    }
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         if (JTMeusLibros.getSelectedRow() != -1) {
             
@@ -204,12 +209,12 @@ public class TelaMeusLivros extends javax.swing.JFrame {
                     }
                     
                 }
-                
+                Livro livrinho = (tableM.retornaLivro(JTMeusLibros.getSelectedRow()));
                 String anoLanc = Integer.toString((tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow())));
                 
-                TelaVisualizarLivro tv = new TelaVisualizarLivro(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
+                TelaVisualizarMeusLivros tv = new TelaVisualizarMeusLivros(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
                         tableM.retornaDescricao(JTMeusLibros.getSelectedRow()), result , tableM.retornaAutor(JTMeusLibros.getSelectedRow()), 
-                            tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc);
+                            tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc, retornaLivro());
                 tv.setVisible(true);
                 dispose();
             
@@ -248,6 +253,10 @@ public class TelaMeusLivros extends javax.swing.JFrame {
                 new TelaMeusLivros().setVisible(true);
             }
         });
+    }
+
+    public JTable getJTMeusLibros() {
+        return JTMeusLibros;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

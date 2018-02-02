@@ -22,6 +22,7 @@ public class LivroTableModelMeus extends AbstractTableModel{
         dados = GerenciadorLivrosL.obterInstancia().getListaLivro(GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado());
      
     }
+    
    
     @Override
     public String getColumnName(int column) {
@@ -37,6 +38,11 @@ public class LivroTableModelMeus extends AbstractTableModel{
     @Override
     public int getColumnCount() {
         return colunas.length;
+    }
+    
+    public Livro retornaLivro(int linha){
+    
+        return dados.get(linha);
     }
     
     public String retornaTitulo(int linha){
@@ -73,6 +79,11 @@ public class LivroTableModelMeus extends AbstractTableModel{
         
         return  dados.get(linha).getAutor();
     
+    }
+    
+    public String retornaEmail(int linha){
+    
+        return dados.get(linha).getEmailUsuario();
     }
 
     @Override
