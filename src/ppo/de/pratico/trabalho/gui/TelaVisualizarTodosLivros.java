@@ -10,14 +10,20 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import ppo.de.pratico.trabalho.exceptions.CampoVazioException;
+import ppo.de.pratico.trabalho.exceptions.TamanhoMaximoException;
 import ppo.de.pratico.trabalho.modelos.Livro;
 
 
@@ -164,6 +170,19 @@ public class TelaVisualizarTodosLivros extends JFrame{
         
     }
     
+    private void validarCampos() throws CampoVazioException, TamanhoMaximoException{
+    
+        if (taComentar.getText().trim().isEmpty()) {
+            throw new CampoVazioException("Comentar");
+        }
+        
+        if (taComentar.getText().length() > 144) {
+            
+            throw new TamanhoMaximoException();
+        }
+    
+    }
+    
     private void configurarAcaoBotoes(){
         
         btnSair.addActionListener(new ActionListener() {
@@ -180,21 +199,25 @@ public class TelaVisualizarTodosLivros extends JFrame{
         btnComentar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    validarCampos();
+                    livro.comentar(taComentar.getText());
+                    dispose();
+                    TelaTodosLivros tmras = new TelaTodosLivros();
+                    tmras.setVisible(true);
+                  }
+                catch (CampoVazioException ex){
                 
-                System.out.println("Aqui o comentário" + taComentar.getText());
-                livro.comentar(taComentar.getText());
-                
-                String result = "";
-                for (int i = 0; i < livro.getComentarios().size(); i++) {
-            
-                    result += livro.getComentarios().get(i) + " ";
+                   JOptionPane.showMessageDialog(null, ex.getMessage(), "Campo vazio", JOptionPane.ERROR_MESSAGE);
                 }
-                System.out.println("Lista de comentários:");
-                System.out.println(result);
+                catch (TamanhoMaximoException ex) { 
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Tamanho máximo", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (IOException | ClassNotFoundException ex ) {
+                    Logger.getLogger(TelaVisualizarTodosLivros.class.getName()).log(Level.SEVERE, null, ex);
+                } 
                 
-                dispose();
-                TelaTodosLivros tmras = new TelaTodosLivros();
-                tmras.setVisible(true);
+  
             }
         });
     
@@ -219,7 +242,7 @@ public class TelaVisualizarTodosLivros extends JFrame{
         
         for (int i = 0; i < livro.getComentarios().size(); i++) {
             
-            result += livro.getComentarios().get(i) + " ";
+            result += livro.getComentarios().get(i) + "\n";
         }
         
         return result;

@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import org.mindrot.jbcrypt.BCrypt;
 import ppo.de.pratico.trabalho.gui.TelaAutenticacaoDoUsuario;
 import ppo.de.pratico.trabalho.exceptions.SenhasNaoConferemException;
-import ppo.de.pratico.trabalho.exceptions.TamanhoMinimoSenha;
+import ppo.de.pratico.trabalho.exceptions.TamanhoMinimoException;
 import ppo.de.pratico.trabalho.exceptions.UsuarioJaCadastradoException;
 
 
@@ -136,11 +136,11 @@ public class TelaCadastroDoUsuario extends JFrame{
     
     }
     
-    private void validarSenhaMinimo() throws TamanhoMinimoSenha{
+    private void validarSenhaMinimo() throws TamanhoMinimoException{
     
         if (txtSenha.getPassword().length < 4) {
             
-            throw new TamanhoMinimoSenha();
+            throw new TamanhoMinimoException();
         }
     }
     
@@ -153,7 +153,7 @@ public class TelaCadastroDoUsuario extends JFrame{
             GerenciadorUsuariosL.obterInstancia().cadastrarUsuario(carregarUsuario());
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
             limparTela();
-        } catch (CampoVazioException | TamanhoMinimoSenha | SenhasNaoConferemException
+        } catch (CampoVazioException | TamanhoMinimoException | SenhasNaoConferemException
                  | UsuarioJaCadastradoException | IOException | ClassNotFoundException ex) {
             
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

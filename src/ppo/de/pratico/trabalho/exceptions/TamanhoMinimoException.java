@@ -2,7 +2,7 @@
 package ppo.de.pratico.trabalho.exceptions;
 
 
-public class TamanhoMinimoSenha extends Exception{
+public class TamanhoMinimoException extends Exception{
 
     @Override
     public String getMessage() {

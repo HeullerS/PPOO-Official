@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import ppo.de.pratico.trabalho.exceptions.CampoVazioException;
+import ppo.de.pratico.trabalho.servicos.GerenciadorUsuariosL;
 
 
 public class Livro implements Comparable<Livro> , Serializable{
@@ -33,9 +35,9 @@ public class Livro implements Comparable<Livro> , Serializable{
         comentarios = new ArrayList<>();
     }
     
-    public void comentar(String comment){
+    public void comentar(String comment) throws IOException, ClassNotFoundException{
     
-        comentarios.add(comment);
+        comentarios.add(GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado() + ": " + comment);
     }
 
     public void setComentarios(ArrayList<String> comentarios) {
