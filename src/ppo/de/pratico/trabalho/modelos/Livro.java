@@ -1,6 +1,7 @@
 
 package ppo.de.pratico.trabalho.modelos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Livro implements Comparable<Livro> , Serializable{
     private String[] palavrasChave;
     private String emailUsuario;
     private ArrayList<String> comentarios;
+    //private final String caminhoArquivo =  "arquivosB/usuarios.bin";
 
     public Livro(String titulo, String autor, String descricao, String genero, int anoDeLancamento, String[] palavrasChave, String emailUsuario) {
         this.titulo = titulo;
@@ -33,8 +35,33 @@ public class Livro implements Comparable<Livro> , Serializable{
         this.palavrasChave = palavrasChave;
         this.emailUsuario = emailUsuario;
         comentarios = new ArrayList<>();
+        //criarArquivo();
+        //lerBinario();
+    }
+    /*
+    public void criarArquivo() throws IOException{
+        File arq = new File(caminhoArquivo);
+        if (!arq.exists()) {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminhoArquivo));
+            oos.writeObject(comentarios);
+            oos.close();
+        }
     }
     
+    public void escreverBinario() throws IOException {
+        ObjectOutputStream oos = null;
+        oos = new ObjectOutputStream(new FileOutputStream(caminhoArquivo));
+        oos.writeObject(comentarios);
+        oos.close();
+    }
+    
+    public void lerBinario() throws IOException,ClassNotFoundException {
+        ObjectInputStream ois = null;
+        ois = new ObjectInputStream(new FileInputStream(caminhoArquivo));
+        comentarios = (ArrayList<String>) ois.readObject();
+        
+    }
+    */
     public void comentar(String comment) throws IOException, ClassNotFoundException{
     
         comentarios.add(GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado() + ": " + comment);
