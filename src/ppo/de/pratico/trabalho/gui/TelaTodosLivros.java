@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import ppo.de.pratico.trabalho.modelos.Livro;
 import ppo.de.pratico.trabalho.servicos.GerenciadorUsuariosL;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModel;
+import ppo.de.pratico.trabalho.tablemodel.LivroTableModelBusca;
 
 
 public class TelaTodosLivros extends javax.swing.JFrame {
@@ -201,8 +202,17 @@ public class TelaTodosLivros extends javax.swing.JFrame {
                 
 
                  TelaBuscaLivros tbl = new TelaBuscaLivros(txtBuscar.getText());
-                 tbl.setVisible(true);
-                 dispose();
+                 if (tbl.tamTabela() > 0) {
+                     
+                    tbl.setVisible(true);
+                    dispose();
+                
+                }else{
+                 
+                     JOptionPane.showMessageDialog(null, "Sua busca não retornou resultados");
+                 }
+                 
+                 
 
             
         }

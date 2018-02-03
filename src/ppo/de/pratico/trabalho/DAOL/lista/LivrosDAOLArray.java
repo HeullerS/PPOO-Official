@@ -131,7 +131,6 @@ public class LivrosDAOLArray implements LivrosDAOL {
             else{
                 
                 for (int i = 0; i < vetor.length; i++) {
-                System.out.println("Valor:" + vetor[i]);
                 if (vetor[i].equals(palavra)) {
                     l1.add(livro);
                     achei = true;
