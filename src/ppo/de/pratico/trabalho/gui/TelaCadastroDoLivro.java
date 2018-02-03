@@ -26,7 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import ppo.de.pratico.trabalho.exceptions.CampoComQuantidadeMinimaException;
 import ppo.de.pratico.trabalho.exceptions.CampoVazioException;
-import ppo.de.pratico.trabalho.exceptions.PalavraChaveIgual;
+import ppo.de.pratico.trabalho.exceptions.PalavraChaveIgualException;
 import ppo.de.pratico.trabalho.modelos.Livro;
 import ppo.de.pratico.trabalho.modelos.Usuario;
 import ppo.de.pratico.trabalho.seguranca.SessaoUsuarioL;
@@ -181,7 +181,7 @@ public class TelaCadastroDoLivro extends JFrame{
         for (int i = 0; i < palavraChave.length; i++) {
             for (int j = 0; j < palavraChave.length - 1; j++) {
                 if ((palavraChave[i].equals(palavraChave[j+1])) && (i != j+1)) {
-                throw new PalavraChaveIgual();
+                throw new PalavraChaveIgualException();
             }
             }
         }

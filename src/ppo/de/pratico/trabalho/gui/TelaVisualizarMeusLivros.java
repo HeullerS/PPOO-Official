@@ -52,30 +52,30 @@ public class TelaVisualizarMeusLivros extends JFrame{
     private Livro livro;
     
     
-    public TelaVisualizarMeusLivros(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, Livro livro){
+    public TelaVisualizarMeusLivros(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, Livro livro, String email){
         super("Livraria online");
         setSize(500,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.livro = livro;
-        inicializar(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc);
+        inicializar(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc, email);
     }
     
     
-    private void inicializar(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
+    private void inicializar(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, String email){
     
-        construirTela(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc);
+        construirTela(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc, email);
         configurarAcaoBotoes();
     }
     
-    private void construirTela(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
+    private void construirTela(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, String email){
         
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
         setLayout(gbl);
         
-        lbTitulo = new JLabel(txtTitulo);
+        lbTitulo = new JLabel(txtTitulo + " (" + email + " | " + livro.getPontos() + " pontos)");
         lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        adicionarComponente(lbTitulo, GridBagConstraints.WEST, GridBagConstraints.NONE, 0, 0, 1, 1);
+        adicionarComponente(lbTitulo, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 0, 1, 1);
         
         lbAutor = new JLabel("Autor");
         adicionarComponente(lbAutor, GridBagConstraints.WEST, GridBagConstraints.NONE, 1, 0, 1, 1);

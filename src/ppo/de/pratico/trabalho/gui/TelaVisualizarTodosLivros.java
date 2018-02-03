@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import ppo.de.pratico.trabalho.exceptions.AvaliacaoInvalidaException;
 import ppo.de.pratico.trabalho.exceptions.CampoVazioException;
 import ppo.de.pratico.trabalho.exceptions.JaAvaliouException;
 import ppo.de.pratico.trabalho.exceptions.TamanhoMaximoException;
@@ -68,34 +69,34 @@ public class TelaVisualizarTodosLivros extends JFrame{
     private Livro livro;
     
     
-    public TelaVisualizarTodosLivros(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, Livro livro){
+    public TelaVisualizarTodosLivros(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, Livro livro, String email){
         super("Livraria online");
         setSize(500,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.livro = livro;
-        inicializar(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc);
+        inicializar(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc, email);
     }
     
     
-    private void inicializar(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
+    private void inicializar(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, String email){
     
-        construirTela(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc);
+        construirTela(txtTitulo, descricao, palavrasChave, autor, genero, anoLanc, email);
         configurarAcaoBotoes();
     }
     
-    private void construirTela(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc){
+    private void construirTela(String txtTitulo, String descricao, String palavrasChave, String autor, String genero, String anoLanc, String email){
         
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
         setLayout(gbl);
         
-        lbTitulo = new JLabel(txtTitulo);
+        lbTitulo = new JLabel(txtTitulo + " (" + email + " | " + livro.getPontos() + " pontos)");
         lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        adicionarComponente(lbTitulo, GridBagConstraints.WEST, GridBagConstraints.NONE, 0, 0, 1, 1);
+        adicionarComponente(lbTitulo, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 0, 1, 1);
         
         painelAvaliacao = new JPanel();
         lbAvaliar = new JLabel("Avaliar:");
-        txtAvaliar = new JTextField(5);
+        txtAvaliar = new JTextField("1 a 5 pontos");
         btnAvaliar = new JButton("Salvar avaliação");
         painelAvaliacao.add(lbAvaliar);
         painelAvaliacao.add(txtAvaliar);
@@ -194,13 +195,18 @@ public class TelaVisualizarTodosLivros extends JFrame{
     
     }
     
-    private void validarAvaliacao() throws JaAvaliouException, IOException, ClassNotFoundException{
+    private void validarAvaliacao() throws JaAvaliouException, IOException, ClassNotFoundException, AvaliacaoInvalidaException{
         
         for (int i = 0; i < livro.getQuemJaAvaliou().size(); i++) {
             System.out.println(GerenciadorUsuariosL.obterInstancia().getUsuario().getNome() + "Comparando com" + livro.getQuemJaAvaliou().get(i));
             if (GerenciadorUsuariosL.obterInstancia().getUsuario().equals(livro.getQuemJaAvaliou().get(i))) {
                 throw new JaAvaliouException();
             }
+        }
+        
+        if ((Integer.parseInt(txtAvaliar.getText()) <= 0) || (Integer.parseInt(txtAvaliar.getText()) >= 6) ) {
+            
+            throw new AvaliacaoInvalidaException();
         }
     
     }
@@ -255,10 +261,25 @@ public class TelaVisualizarTodosLivros extends JFrame{
                     validarAvaliacao();
                     livro.setPontos(Integer.parseInt(txtAvaliar.getText()));
                     livro.avaliarUsuario(GerenciadorUsuariosL.obterInstancia().getUsuario());
-                    System.out.println("Quantidade de pontos" + livro.getPontos());
+                    dispose();
+                    JOptionPane.showMessageDialog(null, "Livro avaliado com sucesso");
+                    TelaTodosLivros tdl = new TelaTodosLivros();
+                    tdl.setVisible(true);
+
                 } catch (JaAvaliouException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Avaliação", JOptionPane.ERROR_MESSAGE);
-                } catch (IOException | ClassNotFoundException ex ) {
+                } 
+                
+                catch (AvaliacaoInvalidaException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Avaliação", JOptionPane.ERROR_MESSAGE);
+                } 
+                
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Você digitou um valor inválido", "Avaliação", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                
+                catch (IOException | ClassNotFoundException ex ) {
                     Logger.getLogger(TelaVisualizarTodosLivros.class.getName()).log(Level.SEVERE, null, ex);
                 } 
                 

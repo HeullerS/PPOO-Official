@@ -215,7 +215,7 @@ public class TelaMeusLivros extends javax.swing.JFrame {
                 
                 TelaVisualizarMeusLivros tv = new TelaVisualizarMeusLivros(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
                         tableM.retornaDescricao(JTMeusLibros.getSelectedRow()), result , tableM.retornaAutor(JTMeusLibros.getSelectedRow()), 
-                            tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc, retornaLivro());
+                            tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc, retornaLivro(), tableM.retornaEmail(JTMeusLibros.getSelectedRow()));
                 tv.setVisible(true);
                 dispose();
             

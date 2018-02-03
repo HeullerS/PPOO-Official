@@ -2,7 +2,7 @@
 package ppo.de.pratico.trabalho.exceptions;
 
 
-public class PalavraChaveIgual extends Exception{
+public class PalavraChaveIgualException extends Exception{
 
     @Override
     public String getMessage() {
