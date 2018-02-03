@@ -28,7 +28,6 @@ public class TelaVisualizarMeusLivros extends JFrame{
     private GridBagConstraints gbc;
     
     private JLabel lbTitulo;
-    private JLabel lbAvaliar;
     private JLabel lbDescricao;
     private JTextArea taDescricaoTexto;
     
@@ -78,58 +77,55 @@ public class TelaVisualizarMeusLivros extends JFrame{
         lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         adicionarComponente(lbTitulo, GridBagConstraints.WEST, GridBagConstraints.NONE, 0, 0, 1, 1);
         
-        lbAvaliar = new JLabel("Avaliar:");
-        adicionarComponente(lbAvaliar, GridBagConstraints.WEST, GridBagConstraints.NONE, 1, 0, 1, 1);
-        
         lbAutor = new JLabel("Autor");
-        adicionarComponente(lbAutor, GridBagConstraints.WEST, GridBagConstraints.NONE, 2, 0, 1, 1);
+        adicionarComponente(lbAutor, GridBagConstraints.WEST, GridBagConstraints.NONE, 1, 0, 1, 1);
         
         taAutor = new JTextArea(autor);
         taAutor.setLineWrap(true);
         taAutor.setEditable(false);
         taAutor.setBackground(null);
-        adicionarComponente(taAutor, GridBagConstraints.WEST, GridBagConstraints.NONE, 3, 0, 1, 1);
+        adicionarComponente(taAutor, GridBagConstraints.WEST, GridBagConstraints.NONE, 2, 0, 1, 1);
         
         lbGenero = new JLabel("Gênero");
-        adicionarComponente(lbGenero, GridBagConstraints.WEST, GridBagConstraints.NONE, 4, 0, 1, 1);
+        adicionarComponente(lbGenero, GridBagConstraints.WEST, GridBagConstraints.NONE, 3, 0, 1, 1);
         
         taGenero = new JTextArea(genero);
         taGenero.setLineWrap(true);
         taGenero.setEditable(false);
         taGenero.setBackground(null);
-        adicionarComponente(taGenero, GridBagConstraints.WEST, GridBagConstraints.NONE, 5, 0, 1, 1);
+        adicionarComponente(taGenero, GridBagConstraints.WEST, GridBagConstraints.NONE, 4, 0, 1, 1);
         
         lbAnoLanc = new JLabel("Ano de lançamento");
-        adicionarComponente(lbAnoLanc, GridBagConstraints.WEST, GridBagConstraints.NONE, 6, 0, 1, 1);
+        adicionarComponente(lbAnoLanc, GridBagConstraints.WEST, GridBagConstraints.NONE, 5, 0, 1, 1);
         
         taAnoLanc = new JTextArea(anoLanc);
         taAnoLanc.setLineWrap(true);
         taAnoLanc.setEditable(false);
         taAnoLanc.setBackground(null);
-        adicionarComponente(taAnoLanc, GridBagConstraints.WEST, GridBagConstraints.NONE, 7, 0, 1, 1);
+        adicionarComponente(taAnoLanc, GridBagConstraints.WEST, GridBagConstraints.NONE, 6, 0, 1, 1);
         
         lbDescricao = new JLabel("Descrição:");
-        adicionarComponente(lbDescricao, GridBagConstraints.WEST, GridBagConstraints.NONE, 8, 0, 1, 1);
+        adicionarComponente(lbDescricao, GridBagConstraints.WEST, GridBagConstraints.NONE, 7, 0, 1, 1);
         
         taDescricaoTexto = new JTextArea(descricao);
         taDescricaoTexto.setLineWrap(true);
         taDescricaoTexto.setEditable(false);
         taDescricaoTexto.setSize(300, 100);
         taDescricaoTexto.setBackground(null);
-        adicionarComponente(taDescricaoTexto, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 9, 0, 1, 1);
+        adicionarComponente(taDescricaoTexto, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 8, 0, 1, 1);
         
         lbPalavrasChave = new JLabel("Palavras-chave");
-        adicionarComponente(lbPalavrasChave, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 10, 0, 1, 1);
+        adicionarComponente(lbPalavrasChave, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 9, 0, 1, 1);
         
         taPalavrasChave = new JTextArea(palavrasChave);
         taPalavrasChave.setLineWrap(true);
         taPalavrasChave.setEditable(false);
         taPalavrasChave.setSize(100, 100);
         taPalavrasChave.setBackground(null);
-        adicionarComponente(taPalavrasChave, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 11, 0, 1, 1);
+        adicionarComponente(taPalavrasChave, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 10, 0, 1, 1);
         
         lbComentarios = new JLabel("Comentários:");
-        adicionarComponente(lbComentarios, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 12, 0, 1, 1);
+        adicionarComponente(lbComentarios, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 11, 0, 1, 1);
         
         //COMENTARIOS
         

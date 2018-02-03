@@ -23,7 +23,9 @@ public class Livro implements Comparable<Livro> , Serializable{
     private int anoDeLancamento;
     private String[] palavrasChave;
     private String emailUsuario;
+    private int pontos;
     private ArrayList<String> comentarios;
+    private ArrayList<Usuario> quemJaAvaliou;
     //private final String caminhoArquivo =  "arquivosB/usuarios.bin";
 
     public Livro(String titulo, String autor, String descricao, String genero, int anoDeLancamento, String[] palavrasChave, String emailUsuario) {
@@ -34,9 +36,19 @@ public class Livro implements Comparable<Livro> , Serializable{
         this.anoDeLancamento = anoDeLancamento;
         this.palavrasChave = palavrasChave;
         this.emailUsuario = emailUsuario;
+        this.pontos = 0;
         comentarios = new ArrayList<>();
+        quemJaAvaliou = new ArrayList<>();
         //criarArquivo();
         //lerBinario();
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos += pontos;
+    }
+
+    public int getPontos() {
+        return pontos;
     }
     /*
     public void criarArquivo() throws IOException{
@@ -62,6 +74,15 @@ public class Livro implements Comparable<Livro> , Serializable{
         
     }
     */
+    public void avaliarUsuario(Usuario u) throws IOException, ClassNotFoundException{
+    
+        quemJaAvaliou.add(u);
+    }
+
+    public ArrayList<Usuario> getQuemJaAvaliou() {
+        return quemJaAvaliou;
+    }
+    
     public void comentar(String comment) throws IOException, ClassNotFoundException{
     
         comentarios.add(GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado() + ": " + comment);

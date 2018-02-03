@@ -34,6 +34,11 @@ public class GerenciadorUsuariosL {
         return sessaoUsuario.getEmail();
     }
     
+    public Usuario getUsuario(){
+    
+        return sessaoUsuario.obterUsuario();
+    }
+    
     public void autenticarUsuario(Usuario usuario) throws Exception{
     
         Usuario usuarioCadastrado = repositorioUsuario.obterUsuarioPeloEmail(usuario.getEmail());

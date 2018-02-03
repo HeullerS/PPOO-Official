@@ -180,7 +180,7 @@ public class TelaCadastroDoLivro extends JFrame{
         
         for (int i = 0; i < palavraChave.length; i++) {
             for (int j = 0; j < palavraChave.length - 1; j++) {
-                if (palavraChave[i].equals(palavraChave[j+1])) {
+                if ((palavraChave[i].equals(palavraChave[j+1])) && (i != j+1)) {
                 throw new PalavraChaveIgual();
             }
             }

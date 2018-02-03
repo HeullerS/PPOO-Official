@@ -23,8 +23,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import ppo.de.pratico.trabalho.exceptions.CampoVazioException;
+import ppo.de.pratico.trabalho.exceptions.JaAvaliouException;
 import ppo.de.pratico.trabalho.exceptions.TamanhoMaximoException;
 import ppo.de.pratico.trabalho.modelos.Livro;
+import ppo.de.pratico.trabalho.servicos.GerenciadorUsuariosL;
 
 
 public class TelaVisualizarTodosLivros extends JFrame{
@@ -33,7 +35,10 @@ public class TelaVisualizarTodosLivros extends JFrame{
     private GridBagConstraints gbc;
     
     private JLabel lbTitulo;
+    private JPanel painelAvaliacao;
     private JLabel lbAvaliar;
+    private JTextField txtAvaliar;
+    private JButton btnAvaliar;
     private JLabel lbDescricao;
     private JTextArea taDescricaoTexto;
     
@@ -88,8 +93,14 @@ public class TelaVisualizarTodosLivros extends JFrame{
         lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         adicionarComponente(lbTitulo, GridBagConstraints.WEST, GridBagConstraints.NONE, 0, 0, 1, 1);
         
+        painelAvaliacao = new JPanel();
         lbAvaliar = new JLabel("Avaliar:");
-        adicionarComponente(lbAvaliar, GridBagConstraints.WEST, GridBagConstraints.NONE, 1, 0, 1, 1);
+        txtAvaliar = new JTextField(5);
+        btnAvaliar = new JButton("Salvar avaliação");
+        painelAvaliacao.add(lbAvaliar);
+        painelAvaliacao.add(txtAvaliar);
+        painelAvaliacao.add(btnAvaliar);
+        adicionarComponente(painelAvaliacao, GridBagConstraints.WEST, GridBagConstraints.BOTH, 1, 0, 1, 1);
         
         lbAutor = new JLabel("Autor");
         adicionarComponente(lbAutor, GridBagConstraints.WEST, GridBagConstraints.NONE, 2, 0, 1, 1);
@@ -170,7 +181,7 @@ public class TelaVisualizarTodosLivros extends JFrame{
         
     }
     
-    private void validarCampos() throws CampoVazioException, TamanhoMaximoException{
+    private void validarCampos() throws CampoVazioException, TamanhoMaximoException, IOException, ClassNotFoundException, JaAvaliouException{
     
         if (taComentar.getText().trim().isEmpty()) {
             throw new CampoVazioException("comentar");
@@ -179,6 +190,17 @@ public class TelaVisualizarTodosLivros extends JFrame{
         if (taComentar.getText().length() > 144) {
             
             throw new TamanhoMaximoException();
+        }
+    
+    }
+    
+    private void validarAvaliacao() throws JaAvaliouException, IOException, ClassNotFoundException{
+        
+        for (int i = 0; i < livro.getQuemJaAvaliou().size(); i++) {
+            System.out.println(GerenciadorUsuariosL.obterInstancia().getUsuario().getNome() + "Comparando com" + livro.getQuemJaAvaliou().get(i));
+            if (GerenciadorUsuariosL.obterInstancia().getUsuario().equals(livro.getQuemJaAvaliou().get(i))) {
+                throw new JaAvaliouException();
+            }
         }
     
     }
@@ -213,11 +235,33 @@ public class TelaVisualizarTodosLivros extends JFrame{
                 catch (TamanhoMaximoException ex) { 
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Tamanho máximo", JOptionPane.ERROR_MESSAGE);
                 }
+                catch (JaAvaliouException ex) {
+                    
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Tamanho máximo", JOptionPane.ERROR_MESSAGE);
+                } 
                 catch (IOException | ClassNotFoundException ex ) {
                     Logger.getLogger(TelaVisualizarTodosLivros.class.getName()).log(Level.SEVERE, null, ex);
                 } 
                 
   
+            }
+        });
+        
+        btnAvaliar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                try {
+                    validarAvaliacao();
+                    livro.setPontos(Integer.parseInt(txtAvaliar.getText()));
+                    livro.avaliarUsuario(GerenciadorUsuariosL.obterInstancia().getUsuario());
+                    System.out.println("Quantidade de pontos" + livro.getPontos());
+                } catch (JaAvaliouException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Avaliação", JOptionPane.ERROR_MESSAGE);
+                } catch (IOException | ClassNotFoundException ex ) {
+                    Logger.getLogger(TelaVisualizarTodosLivros.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                
             }
         });
     
