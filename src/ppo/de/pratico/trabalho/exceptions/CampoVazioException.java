@@ -13,9 +13,11 @@ public class CampoVazioException extends Exception{
         this.componente = componente;
     }
     
-    public CampoVazioException(String campo) {
+    public CampoVazioException(String campo){
+    
         this.campo = campo;
     }
+    
 
     @Override
     public String getMessage() {
@@ -23,7 +25,8 @@ public class CampoVazioException extends Exception{
             return String.format("O campo \"%s\" não pode estar vazio!", componente.getText());
         }
         if (campo != null) {
-            return "O campo não pode estar vazio";
+            
+            return "Você não pode " +  campo + " sem palavras :D";
         }
         return "";
     }

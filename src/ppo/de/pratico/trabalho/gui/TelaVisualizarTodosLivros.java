@@ -173,7 +173,7 @@ public class TelaVisualizarTodosLivros extends JFrame{
     private void validarCampos() throws CampoVazioException, TamanhoMaximoException{
     
         if (taComentar.getText().trim().isEmpty()) {
-            throw new CampoVazioException("Comentar");
+            throw new CampoVazioException("comentar");
         }
         
         if (taComentar.getText().length() > 144) {

@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import ppo.de.pratico.trabalho.exceptions.CampoComQuantidadeMinimaException;
 import ppo.de.pratico.trabalho.exceptions.CampoVazioException;
+import ppo.de.pratico.trabalho.exceptions.PalavraChaveIgual;
 import ppo.de.pratico.trabalho.modelos.Livro;
 import ppo.de.pratico.trabalho.modelos.Usuario;
 import ppo.de.pratico.trabalho.seguranca.SessaoUsuarioL;
@@ -177,6 +178,14 @@ public class TelaCadastroDoLivro extends JFrame{
             throw new CampoComQuantidadeMinimaException(lbPalavrasChave);
         }
         
+        for (int i = 0; i < palavraChave.length; i++) {
+            for (int j = 0; j < palavraChave.length - 1; j++) {
+                if (palavraChave[i].equals(palavraChave[j+1])) {
+                throw new PalavraChaveIgual();
+            }
+            }
+        }
+        
     }
     
    
@@ -197,7 +206,7 @@ public class TelaCadastroDoLivro extends JFrame{
                       JOptionPane.showMessageDialog(null, "O ano de lançamento deve ser um número!", "Recurso", JOptionPane.ERROR_MESSAGE);
                 } 
                 catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Recurso", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Livro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

@@ -13,6 +13,7 @@ public interface LivrosDAOL {
     public Livro obterLivroPeloTitulo(String email, String titulo);
     public ArrayList<Livro> getListaLivros();
     public ArrayList<Livro> getListaLivros(String email);
+    public ArrayList<Livro> getListaLibros(String palavra);
     public void lerArquivo() throws IOException, ClassNotFoundException;
     public void escreverArquivo() throws IOException;
     public void remover(String email, String titulo) throws LivroNaoEncontradoException, IOException;

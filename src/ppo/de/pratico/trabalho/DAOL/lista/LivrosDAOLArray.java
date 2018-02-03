@@ -14,11 +14,13 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import ppo.de.pratico.trabalho.DAOL.LivrosDAOL;
 import ppo.de.pratico.trabalho.exceptions.LivroNaoEncontradoException;
+import ppo.de.pratico.trabalho.gui.TelaBuscaLivros;
+import ppo.de.pratico.trabalho.gui.TelaTodosLivros;
 import ppo.de.pratico.trabalho.modelos.Livro;
 import ppo.de.pratico.trabalho.modelos.Usuario;
 
 
-public class LivrosDAOLArray implements LivrosDAOL{
+public class LivrosDAOLArray implements LivrosDAOL {
     
     private static LivrosDAOLArray instancia;
     private final String caminhoArquivo = "arquivosB/livros.bin";
@@ -66,6 +68,7 @@ public class LivrosDAOLArray implements LivrosDAOL{
         return l1;
     }
     
+    @Override
     public ArrayList<Livro> getListaLivros(String email) {
         ArrayList<Livro> l1 = new ArrayList<>();
         for (Livro livro : listaLivro) {
@@ -111,6 +114,36 @@ public class LivrosDAOLArray implements LivrosDAOL{
             } 
         }
         throw new LivroNaoEncontradoException();
+    }
+
+    @Override
+    public ArrayList<Livro> getListaLibros(String palavra) {
+        
+        boolean achei = false;
+        ArrayList<Livro> l1 = new ArrayList<>();
+        for (Livro livro : listaLivro) {
+            
+            String vetor[] = livro.getPalavrasChave();
+            if((livro.getTitulo().equals(palavra))) {
+                l1.add(livro);
+                achei = true;
+            }
+            else{
+                
+                for (int i = 0; i < vetor.length; i++) {
+                System.out.println("Valor:" + vetor[i]);
+                if (vetor[i].equals(palavra)) {
+                    l1.add(livro);
+                    achei = true;
+                }
+            }
+
+            }
+ 
+        }
+        
+        return l1;
+        
     }
 
 }

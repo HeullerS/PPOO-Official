@@ -57,6 +57,13 @@ public class GerenciadorLivrosL {
         return li;
     }
     
+    public ArrayList<Livro> getListaLibro(String palavra){
+        
+        ArrayList<Livro> li = repositorioLivro.getListaLibros(palavra);
+        Collections.sort(li);
+        return li;
+    }
+    
     public void remover(String email, String titulo) throws LivroNaoEncontradoException, IOException {
         
         repositorioLivro.remover(email,titulo);
