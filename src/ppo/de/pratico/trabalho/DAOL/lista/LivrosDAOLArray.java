@@ -119,21 +119,18 @@ public class LivrosDAOLArray implements LivrosDAOL {
     @Override
     public ArrayList<Livro> getListaLibros(String palavra) {
         
-        boolean achei = false;
         ArrayList<Livro> l1 = new ArrayList<>();
         for (Livro livro : listaLivro) {
             
             String vetor[] = livro.getPalavrasChave();
             if((livro.getTitulo().equals(palavra))) {
                 l1.add(livro);
-                achei = true;
             }
             else{
                 
                 for (int i = 0; i < vetor.length; i++) {
                 if (vetor[i].equals(palavra)) {
                     l1.add(livro);
-                    achei = true;
                 }
             }
 

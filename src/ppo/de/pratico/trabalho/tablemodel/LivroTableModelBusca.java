@@ -60,5 +60,51 @@ public class LivroTableModelBusca extends AbstractTableModel{
         return null;
     }
     
+    public Livro retornaLivro(int linha){
+    
+        return dados.get(linha);
+    }
+    
+    public String retornaTitulo(int linha){
+        
+        return  dados.get(linha).getTitulo();
+    
+    }
+    
+    public String retornaDescricao(int linha){
+        
+        return  dados.get(linha).getDescricao();
+    
+    }
+    
+    public String retornaGenero(int linha){
+        
+        return  dados.get(linha).getGenero();
+    
+    }
+    
+    public int retornaAnoLancamento(int linha){
+        
+        return  dados.get(linha).getAnoDeLancamento();
+    
+    }
+    
+    public String[] retornaPalavrasChave(int linha){
+        
+        return  dados.get(linha).getPalavrasChave();
+    
+    }
+    
+    public String retornaAutor(int linha){
+        
+        return  dados.get(linha).getAutor();
+    
+    }
+    
+    public String retornaEmail(int linha){
+    
+        return dados.get(linha).getEmailUsuario();
+    }
+    
 }    
 

@@ -169,8 +169,11 @@ public class TelaCadastroDoUsuario extends JFrame{
                 
                 try {
                     testarECadastrarCampos();
+                    TelaAutenticacaoDoUsuario tp = new TelaAutenticacaoDoUsuario();
+                    tp.setVisible(true);
+                    dispose();
                 } catch (Exception ex) {
-                    System.out.println("erro");
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 }
                  
             }

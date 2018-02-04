@@ -6,7 +6,11 @@
 package ppo.de.pratico.trabalho.gui;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import ppo.de.pratico.trabalho.modelos.Livro;
+import ppo.de.pratico.trabalho.servicos.GerenciadorUsuariosL;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModelBusca;
 import ppo.de.pratico.trabalho.tablemodel.LivroTableModelMeus;
 
@@ -53,6 +57,7 @@ public class TelaBuscaLivros extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         JTMeusLibros = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
+        btnVisualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,21 +81,32 @@ public class TelaBuscaLivros extends javax.swing.JFrame {
             }
         });
 
+        btnVisualizar.setText("Visualizar livro");
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(84, 84, 84)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVoltar)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVisualizar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnVoltar)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(18, 18, 18)
+                .addComponent(btnVisualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltar)
@@ -105,6 +121,55 @@ public class TelaBuscaLivros extends javax.swing.JFrame {
             tdl.setVisible(true);
             dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    
+        public Livro retornaLivro(){
+    
+        Livro livrinho = (tableM.retornaLivro(JTMeusLibros.getSelectedRow()));
+        return livrinho;
+    }
+    
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+        if (JTMeusLibros.getSelectedRow() != -1) {
+            
+                String result = "";
+                for (int i = 0; i < tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()).length; i++) {
+                    if (i == tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow()).length - 1) {
+                        result += tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow())[i];
+                    }
+                    else{
+                        result += tableM.retornaPalavrasChave(JTMeusLibros.getSelectedRow())[i] + ", ";
+                    }
+                    
+                }
+                Livro livrinho = (tableM.retornaLivro(JTMeusLibros.getSelectedRow()));
+                String anoLanc = Integer.toString((tableM.retornaAnoLancamento(JTMeusLibros.getSelectedRow())));
+                
+           try {
+               if ((tableM.retornaEmail(JTMeusLibros.getSelectedRow())).equals(GerenciadorUsuariosL.obterInstancia().obterEmailDoUsuarioLogado())) {
+                   
+                   TelaVisualizarMeusLivros tv = new TelaVisualizarMeusLivros(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
+                    tableM.retornaDescricao(JTMeusLibros.getSelectedRow()), result , tableM.retornaAutor(JTMeusLibros.getSelectedRow()), 
+                    tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc, retornaLivro(), tableM.retornaEmail(JTMeusLibros.getSelectedRow()));
+                    tv.setVisible(true);
+                    dispose();
+                   
+               }
+               else{
+                   
+                    TelaVisualizarTodosLivros tv = new TelaVisualizarTodosLivros(tableM.retornaTitulo(JTMeusLibros.getSelectedRow()), 
+                    tableM.retornaDescricao(JTMeusLibros.getSelectedRow()), result , tableM.retornaAutor(JTMeusLibros.getSelectedRow()), 
+                    tableM.retornaGenero(JTMeusLibros.getSelectedRow()), anoLanc, retornaLivro(), tableM.retornaEmail(JTMeusLibros.getSelectedRow()));
+                    tv.setVisible(true);
+                    dispose();
+               
+               }
+           } catch (IOException | ClassNotFoundException ex ) {
+               Logger.getLogger(TelaTodosLivros.class.getName()).log(Level.SEVERE, null, ex);
+           } 
+                     
+        }
+    }//GEN-LAST:event_btnVisualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +208,7 @@ public class TelaBuscaLivros extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTMeusLibros;
+    private javax.swing.JButton btnVisualizar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

@@ -198,7 +198,6 @@ public class TelaVisualizarTodosLivros extends JFrame{
     private void validarAvaliacao() throws JaAvaliouException, IOException, ClassNotFoundException, AvaliacaoInvalidaException{
         
         for (int i = 0; i < livro.getQuemJaAvaliou().size(); i++) {
-            System.out.println(GerenciadorUsuariosL.obterInstancia().getUsuario().getNome() + "Comparando com" + livro.getQuemJaAvaliou().get(i));
             if (GerenciadorUsuariosL.obterInstancia().getUsuario().equals(livro.getQuemJaAvaliou().get(i))) {
                 throw new JaAvaliouException();
             }
